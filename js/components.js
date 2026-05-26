@@ -85,6 +85,40 @@ function toolsTable(headers, rows) {
   return `<div class="scrollable"><table class="tools-table"><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table></div>`;
 }
 
+// ── Workflow diagram ────────────────────────────────────────────────────────
+// Renders 6 steps in two columns of 3, connected by a J-shaped SVG arrow.
+// Each step: { num, title, tool, desc }
+
+function workflowDiagram(steps) {
+  function renderStep(s) {
+    return `<div class="wf-step">
+      <span class="wf-num">${s.num}</span>
+      <div class="wf-body">
+        <div class="wf-title">${s.title}</div>
+        <div class="wf-tool">${s.tool}</div>
+        <div class="wf-desc">${s.desc}</div>
+      </div>
+    </div>`;
+  }
+
+  const left  = steps.slice(0, 3).map(renderStep).join('');
+  const right = steps.slice(3, 6).map(renderStep).join('');
+
+  // J-arrow: exits right from bottom of col1, rises, enters top of col2
+  const bridge = `<svg viewBox="0 0 40 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M1,278 L20,278 L20,22 L38,22"
+          fill="none" stroke="#1D6E4F" stroke-width="1.5" stroke-dasharray="5 3"/>
+    <polygon points="38,22 32,17 32,27" fill="#1D6E4F"/>
+    <circle cx="1" cy="278" r="4" fill="#1D6E4F"/>
+  </svg>`;
+
+  return `<div class="wf-wrap">
+    <div class="wf-col">${left}</div>
+    <div class="wf-bridge">${bridge}</div>
+    <div class="wf-col">${right}</div>
+  </div>`;
+}
+
 // ── Quiz component ──────────────────────────────────────────────────────────
 
 function quizOptions(options, answerHTML) {

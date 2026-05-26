@@ -428,6 +428,48 @@ p.body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── WORKFLOW DIAGRAM ── */
+.wf-wrap {
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr;
+  margin-top: 14px;
+  align-items: stretch;
+}
+.wf-col { display: flex; flex-direction: column; gap: 6px; }
+.wf-step {
+  display: flex; gap: 10px; align-items: flex-start;
+  background: var(--bg-alt);
+  border: 1px solid var(--rule);
+  padding: 10px 13px;
+  position: relative;
+  flex: 1;
+}
+.wf-step::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 2px; height: 100%;
+  background: var(--accent);
+}
+.wf-num {
+  font-size: 20px; font-weight: 300; font-style: italic;
+  color: var(--accent-pale); flex-shrink: 0; min-width: 24px; line-height: 1.1;
+}
+.wf-body { flex: 1; min-width: 0; }
+.wf-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+.wf-tool {
+  font-family: 'Courier New', monospace;
+  font-size: 10px; color: var(--accent); margin-bottom: 5px; letter-spacing: 0.05em;
+}
+.wf-desc { font-size: 12px; color: var(--ink-soft); line-height: 1.45; }
+.wf-desc code {
+  font-family: 'Courier New', monospace;
+  font-size: 11px; color: var(--accent);
+  background: rgba(29,110,79,0.08);
+  padding: 0 3px; border-radius: 2px;
+}
+.wf-bridge { display: flex; align-items: stretch; justify-content: center; }
+.wf-bridge svg { width: 40px; height: 100%; display: block; }
+
 /* ── QUIZ ── */
 .quiz-question {
   font-size: clamp(18px, 2.4vw, 26px);

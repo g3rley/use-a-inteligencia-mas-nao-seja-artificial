@@ -324,7 +324,57 @@ const SLIDES = [
     },
   },
 
-  // ── 15 · DIVISOR: Prompts ────────────────────────────────────────────────
+  // ── 15 · FLUXOGRAMA: IA + DataSUS ───────────────────────────────────────
+  {
+    id: 's-workflow',
+    render(i, total) {
+      const steps = [
+        {
+          num: '01', title: 'Formulação do Protocolo',
+          tool: 'Claude · ChatGPT',
+          desc: 'Define pergunta PICO: mortalidade cardiovascular (CID I00–I99) em adultos brasileiros. Sugere desenho ecológico de série temporal.',
+        },
+        {
+          num: '02', title: 'Coleta no DATASUS',
+          tool: 'ChatGPT · Claude',
+          desc: 'Orienta uso do TabNet; gera script R com <code>microdatasus</code> para download automatizado dos microdados do SIM (2010–2022).',
+        },
+        {
+          num: '03', title: 'Limpeza e Padronização',
+          tool: 'Julius AI · Code Interpreter',
+          desc: 'Exclui registros com CID inconsistente; calcula taxa de mortalidade por 100.000 hab. usando projeções IBGE por UF e ano.',
+        },
+        {
+          num: '04', title: 'Análise de Tendência',
+          tool: 'ChatGPT + Code Interpreter',
+          desc: 'Executa regressão de Prais-Winsten; interpreta coeficiente β anual, IC 95% e classifica tendência: crescente, decrescente ou estacionária.',
+        },
+        {
+          num: '05', title: 'Redação Científica',
+          tool: 'Jenni AI · Claude',
+          desc: 'Redige seções Métodos e Resultados; formata tabela de tendência por região e gera legenda do gráfico de linha temporal.',
+        },
+        {
+          num: '06', title: 'Revisão e Submissão',
+          tool: 'Grammarly · Claude',
+          desc: 'Verifica conformidade com checklist STROBE; ajusta linguagem técnica e prepara carta de submissão com resposta antecipada a revisores.',
+        },
+      ];
+
+      return `<div class="surface">
+        ${eyebrow('Aplicação Prática · DataSUS')}
+        <h2>IA em cada etapa <em>do estudo</em></h2>
+        <p class="body" style="margin-top:5px; color:var(--ink-muted); font-style:italic; font-size:12.5px;">
+          Exemplo: tendência de mortalidade cardiovascular no Brasil, 2010–2022 · SIM/DATASUS
+        </p>
+        ${workflowDiagram(steps)}
+        ${slideNumEl(i + 1, total)}
+        ${speakerTagEl(SPEAKER)}
+      </div>`;
+    },
+  },
+
+  // ── 16 · DIVISOR: Prompts ────────────────────────────────────────────────
   {
     id: 's15',
     render(i, total) {
