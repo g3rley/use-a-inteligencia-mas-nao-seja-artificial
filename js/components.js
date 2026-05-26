@@ -86,40 +86,32 @@ function toolsTable(headers, rows) {
 }
 
 function pyramidSVG() {
+  // Each level: polygon coords + midpoint Y + right-edge X at midY (for connector line)
   const levels = [
-    { points: '130,10 160,60 100,60',          fill: '#1D6E4F', y: 43,  label: 'Meta-análise / RS',      color: 'white',   size: 8, bold: true },
-    { points: '100,62 160,62 180,102 80,102',   fill: '#2D9468', y: 87,  label: 'ECR',                   color: 'white',   size: 9 },
-    { points: '80,104 180,104 205,148 55,148',  fill: '#3BAA78', y: 131, label: 'Coorte · Caso-controle', color: 'white',   size: 9 },
-    { points: '55,150 205,150 228,194 32,194',  fill: '#5DC090', y: 177, label: 'Estudos Transversais',   color: '#1A1814', size: 9 },
-    { points: '32,196 228,196 248,238 12,238',  fill: '#8EDAD8', y: 221, label: 'Relatos de Caso',        color: '#1A1814', size: 9 },
-    { points: '12,240 248,240 260,270 0,270',   fill: '#C2EDEA', y: 258, label: 'Opinião de Especialistas', color: '#1A1814', size: 9 },
+    { points: '130,10 160,60 100,60',          fill: '#1D6E4F', midY: 35,  xEdge: 145, label: 'Meta-análise / RS',     desc: 'Síntese máxima · maior confiabilidade' },
+    { points: '100,62 160,62 180,102 80,102',   fill: '#2D9468', midY: 82,  xEdge: 170, label: 'ECR',                   desc: 'Padrão-ouro para intervenções' },
+    { points: '80,104 180,104 205,148 55,148',  fill: '#3BAA78', midY: 126, xEdge: 193, label: 'Coorte · Caso-controle', desc: 'Prognóstico e etiologia' },
+    { points: '55,150 205,150 228,194 32,194',  fill: '#5DC090', midY: 172, xEdge: 217, label: 'Estudos Transversais',  desc: 'Foto instantânea da população' },
+    { points: '32,196 228,196 248,238 12,238',  fill: '#8EDAD8', midY: 217, xEdge: 238, label: 'Relatos de Caso',       desc: 'Geram hipóteses · baixo poder inferencial' },
+    { points: '12,240 248,240 260,270 0,270',   fill: '#C2EDEA', midY: 255, xEdge: 254, label: 'Opinião / Editorial',   desc: 'Contexto · não base de decisão' },
   ];
 
-  const legendData = [
-    { color: '#1D6E4F', html: '<strong>Meta-análise / RS:</strong> síntese máxima de evidências, maior confiabilidade.' },
-    { color: '#2D9468', html: '<strong>ECR:</strong> aleatorização minimiza vieses; referência para intervenções.' },
-    { color: '#3BAA78', html: '<strong>Observacionais analíticos:</strong> coorte e caso-controle, bons para prognóstico/etiologia.' },
-    { color: '#5DC090', html: '<strong>Transversais:</strong> foto instantânea da população; limitação de causalidade.' },
-    { color: '#8EDAD8', html: '<strong>Relatos de caso:</strong> geram hipóteses; baixo poder inferencial.' },
-    { color: '#C2EDEA', html: '<strong>Opinião / Editorial:</strong> úteis como contexto, não como base de decisão.' },
-  ];
-
-  const svgPolygons = levels.map(l => {
-    const weight = l.bold ? ' font-weight="500"' : '';
-    return `<polygon points="${l.points}" fill="${l.fill}"/>
-    <text x="130" y="${l.y}" text-anchor="middle" font-size="${l.size}" font-family="Cormorant Garamond,serif" fill="${l.color}"${weight}>${l.label}</text>`;
-  }).join('\n    ');
-
-  const legendItems = legendData.map(l =>
-    `<li><span class="pleg-dot" style="background:${l.color}"></span>${l.html}</li>`
+  const polygons = levels.map(l =>
+    `<polygon points="${l.points}" fill="${l.fill}"/>`
   ).join('');
 
-  return `<div class="pyramid-wrap">
-    <div class="pyramid">
-      <svg width="260" height="280" viewBox="0 0 260 280">
-        ${svgPolygons}
-      </svg>
-    </div>
-    <ul class="pyramid-legend">${legendItems}</ul>
+  const annotations = levels.map(l => {
+    const y1 = l.midY - 5;  // main label baseline
+    const y2 = l.midY + 10; // description baseline
+    return `<line x1="${l.xEdge + 3}" y1="${l.midY}" x2="263" y2="${l.midY}" stroke="#C8C3BB" stroke-width="0.8"/>
+      <text x="270" y="${y1}" font-size="13.5" font-family="Cormorant Garamond,serif" fill="#1A1814" font-weight="500">${l.label}</text>
+      <text x="270" y="${y2}" font-size="10.5" font-family="Cormorant Garamond,serif" fill="#8A8480">${l.desc}</text>`;
+  }).join('\n      ');
+
+  return `<div class="pyramid-container">
+    <svg viewBox="0 0 490 282" xmlns="http://www.w3.org/2000/svg" aria-label="Pirâmide de Evidências">
+      ${polygons}
+      ${annotations}
+    </svg>
   </div>`;
 }
