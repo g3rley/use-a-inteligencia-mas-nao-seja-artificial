@@ -85,6 +85,31 @@ function toolsTable(headers, rows) {
   return `<div class="scrollable"><table class="tools-table"><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table></div>`;
 }
 
+// ── Quiz component ──────────────────────────────────────────────────────────
+
+function quizOptions(options, answerHTML) {
+  const btns = options.map(({ label, text, correct }) =>
+    `<button class="quiz-option" data-correct="${correct}" onclick="quizSelect(this)">
+      <span class="quiz-letter">${label}</span> ${text}
+    </button>`
+  ).join('');
+  return `<div class="quiz-options">${btns}</div>
+    <div class="quiz-answer">${answerHTML}</div>`;
+}
+
+function quizSelect(btn) {
+  const container = btn.closest('.quiz-options');
+  container.querySelectorAll('.quiz-option').forEach(o => {
+    o.disabled = true;
+    if (o.dataset.correct === 'true') o.classList.add('correct');
+    else if (o === btn) o.classList.add('wrong');
+  });
+  const answer = container.nextElementSibling;
+  if (answer && answer.classList.contains('quiz-answer')) {
+    answer.classList.add('visible');
+  }
+}
+
 function pyramidSVG() {
   // Each level: polygon coords + midpoint Y + right-edge X at midY (for connector line)
   const levels = [

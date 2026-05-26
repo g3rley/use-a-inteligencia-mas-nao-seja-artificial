@@ -30,60 +30,66 @@ const SLIDES = [
     },
   },
 
-  // ── 1 · PERGUNTA 1 ────────────────────────────────────────────────────────
+  // ── 1 · QUIZ 1 ───────────────────────────────────────────────────────────
   {
     id: 's1',
     render(i, total) {
+      const quiz = quizOptions([
+        { label: 'A', correct: false, text: 'Revisão Narrativa' },
+        { label: 'B', correct: false, text: 'Ensaio Clínico Randomizado (ECR)' },
+        { label: 'C', correct: true,  text: 'Meta-análise / Revisão Sistemática' },
+        { label: 'D', correct: false, text: 'Estudo de Coorte Prospectivo' },
+      ], `<strong>✓ C — Meta-análise / Revisão Sistemática.</strong> Representa o topo da pirâmide de evidências: sintetiza resultados de múltiplos estudos com rigor estatístico e oferece o maior poder inferencial disponível.`);
+
       return `<div class="surface">
-        ${eyebrow('Conhecendo o público · 01')}
-        <p class="question-text">
-          Você já participou da produção de algum trabalho científico — abstract, artigo, revisão ou pesquisa?
-        </p>
+        ${eyebrow('Quiz · 01')}
+        <p class="quiz-question">Qual é o nível mais alto na pirâmide de evidências científicas?</p>
+        ${quiz}
         ${rule()}
-        <p class="body" style="color:var(--ink-muted); font-style:italic;">
-          Levante a mão. Sem julgamento — estamos aqui exatamente para mudar isso.
-        </p>
-        <div class="question-mark">?</div>
         ${slideNumEl(i + 1, total)}
         ${speakerTagEl(SPEAKER)}
       </div>`;
     },
   },
 
-  // ── 2 · PERGUNTA 2 ────────────────────────────────────────────────────────
+  // ── 2 · QUIZ 2 ───────────────────────────────────────────────────────────
   {
     id: 's2',
     render(i, total) {
+      const quiz = quizOptions([
+        { label: 'A', correct: true,  text: 'Geração de conteúdo plausível mas factualmente incorreto' },
+        { label: 'B', correct: false, text: 'Lentidão ao processar textos muito longos' },
+        { label: 'C', correct: false, text: 'Erros de formatação em documentos exportados' },
+        { label: 'D', correct: false, text: 'Recusa em responder perguntas sensíveis' },
+      ], `<strong>✓ A — Conteúdo plausível mas incorreto.</strong> IAs generativas podem inventar referências, datas, dados ou citações com aparência real. Por isso, nunca use uma referência gerada por IA sem conferir a fonte original.`);
+
       return `<div class="surface">
-        ${eyebrow('Conhecendo o público · 02')}
-        <p class="question-text">
-          Você já usou alguma ferramenta de IA — ChatGPT, Gemini, Claude — para estudar ou escrever algo acadêmico?
-        </p>
+        ${eyebrow('Quiz · 02')}
+        <p class="quiz-question">O que é "alucinação" no contexto de ferramentas de IA generativa?</p>
+        ${quiz}
         ${rule()}
-        <p class="body" style="color:var(--ink-muted); font-style:italic;">
-          E: você se sentiu seguro fazendo isso, ou ficou com aquela pulga atrás da orelha?
-        </p>
-        <div class="question-mark">?</div>
         ${slideNumEl(i + 1, total)}
         ${speakerTagEl(SPEAKER)}
       </div>`;
     },
   },
 
-  // ── 3 · PERGUNTA 3 ────────────────────────────────────────────────────────
+  // ── 3 · QUIZ 3 ───────────────────────────────────────────────────────────
   {
     id: 's3',
     render(i, total) {
+      const quiz = quizOptions([
+        { label: 'A', correct: false, text: 'Pesquisar artigos no PubMed sem filtros definidos' },
+        { label: 'B', correct: false, text: 'Escolher a ferramenta de gestão de referências' },
+        { label: 'C', correct: false, text: 'Redigir a introdução do trabalho' },
+        { label: 'D', correct: true,  text: 'Definir a pergunta de pesquisa com o framework PICO' },
+      ], `<strong>✓ D — Definir a pergunta com PICO.</strong> Population, Intervention, Comparison e Outcome estruturam toda a revisão: determinam os critérios de inclusão/exclusão, os descritores de busca e garantem a reprodutibilidade do protocolo.`);
+
       return `<div class="surface">
-        ${eyebrow('Conhecendo o público · 03')}
-        <p class="question-text">
-          Se você precisasse começar uma revisão sistemática amanhã — por onde começaria?
-        </p>
+        ${eyebrow('Quiz · 03')}
+        <p class="quiz-question">Qual é o primeiro passo ao iniciar uma revisão sistemática de qualidade?</p>
+        ${quiz}
         ${rule()}
-        <p class="body" style="color:var(--ink-muted); font-style:italic;">
-          Anote mentalmente sua resposta. Vamos revisitar isso ao longo da palestra.
-        </p>
-        <div class="question-mark">?</div>
         ${slideNumEl(i + 1, total)}
         ${speakerTagEl(SPEAKER)}
       </div>`;
